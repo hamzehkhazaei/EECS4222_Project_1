@@ -148,7 +148,7 @@ $ ssh-copy-id eecs@192.168.0.101
 ```
 
 ## The 'eecs' user on Ubuntu VMs
-For some of the commands, you need to use `sudo` to run the command with the root access. `sudo` asks password from the user. By adding `eecs ALL=(ALL) NOPASSWD:ALL` at the end of the sudoers file, eecs user won't have to enter password each time using `sudo`.
+For some of the commands, you need to use `sudo` to run the command with the root access. `sudo` asks password from the user. By adding `eecs ALL=(ALL) NOPASSWD:ALL` at the end of the sudoers file, eecs user won't have to enter password each time using `sudo`. (Do the following part on all of the severs)
 
 ```sh
 # open sudoers file
