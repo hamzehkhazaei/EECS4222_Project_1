@@ -68,7 +68,7 @@ prometheus-kube-prometheus-prometheus     LoadBalancer   10.43.195.135   192.168
 prometheus-grafana                        LoadBalancer   10.43.243.216   192.168.0.100,192.168.0.101             3000:30331/TCP               41m
 ```
 
-Now, you should be able to open Prometheus on `http://MASTER_IP:9090` and Grafana on `http://MASTER_IP:3000`. The
+Now, you should be able to open Prometheus on `http://WORKER_IP:9090` and Grafana on `http://WORKER_IP:3000`. The
 default username and password for Grafana is `admin` and `prom-operator`. Next, we will try out some queries
 on Prometheus to get several metrics from our deployment. 
 
