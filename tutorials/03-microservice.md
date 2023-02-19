@@ -48,7 +48,7 @@ After the all the services are up and running, you can open the deployed
 website by openning the **Microsoft Edge** and going to the address `http://WORKER_IP`. You can also open
 the load generator UI by going to the address `http://WORKER_IP:8089`.
 
-Note that you need to replace `MASTER_IP` with the IP of your master node.
+Note that you need to replace `WORKER_IP` with the IP of your worker node.
 
 If everything has worked well, you will be able to open the online store
 deployed and see the load generator plots and statistics shown. We will later
