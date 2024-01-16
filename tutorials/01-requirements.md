@@ -6,6 +6,8 @@ need access to a cloud computing infrastructure including a set of Virtual Machi
 
 <!-- You should have already received an email containing above information. -->
 
+Before you begin, ensure that you have access to the EECS4222 lab in Azure Lab Services via this [link](https://labs.azure.com/virtualmachines). If you don't, follow the steps outlined in this [link](https://github.com/hamzehkhazaei/Azure_Lab) to complete the prerequisites.
+
 So far, you should be able to get connected to the Windows machine by using RDP installed on your laptop. Also, you should have Hyper-V Manager installed on Windows. Make sure you have access to these resources and are comfortable using the `bash` to interact with the server before you continue this tutorial.
 
 <!-- For this tutorial,
@@ -17,11 +19,15 @@ different location, you need to use the `-i` option for all ssh commands, like b
 
 To set up a Kubernetes cluster, we will need different VMs to take `master`, `worker`, and `cluster head` roles.
 The `master` nodes will be responsible for keeping the cluster running and scheduling resources on available
-nodes while `worker` nodes will be responsible for running those workloads. `Cluster head` manages the nodes in the Kubernetes cluster and joins the worker node to the master.
+nodes while `worker` nodes will be responsible for running those workloads. `Cluster head` manages the nodes in the Kubernetes cluster and joins the worker nodes to the master.
 Throughout this tutorial, we assume a cluster of following nodes: </br>
-1. Master node: server1 with IP address 192.168.0.100
-2. Worker node: server2 with IP address 192.168.0.101
-3. Cluster head: serevr3 with IP address 192.168.0.102
+
+1. Cluster head: server1 with IP address 192.168.0.100
+2. Worker node one: server2 with IP address 192.168.0.101
+3. Worker node two: server3 with IP address 192.168.0.103
+4. Master node: server4 with IP address 192.168.0.102
+
+<strong>Note: </strong> You're not obligated to strictly follow the allocations shown at the top. Simply ensure that the VM with the highest resources is assigned to your Master node. In this case, the Master node has been allocated 121 GB of storage space.
 
 <!-- ## OpenVPN Connection
 
@@ -38,19 +44,23 @@ of the instances provided to you. -->
 
 ## SSH Access
 
-To ssh onto the master or worker, use the `eecs` user. The password for 'eecs' user is 'eecs'. Open Command Prompt application (cmd.exe) on Windows for 3 times and connect to the server1, server2, and server3 through ssh.
+To ssh onto the master or worker, use the `eecs` user. The password for 'eecs' user is 'eecs'. Open Command Prompt application (cmd.exe) on Windows for 4 times and connect to the server1, server2, server3, and server4 through ssh.
 
 ```sh
 # ssh to the master
-$ ssh eecs@192.168.0.100
+$ ssh eecs@192.168.0.102
 ```
 ```sh
-# ssh to the worker
+# ssh to the worker one
 $ ssh eecs@192.168.0.101
 ```
 ```sh
+# ssh to the worker two
+$ ssh eecs@192.168.0.103
+```
+```sh
 # ssh to the cluster head
-$ ssh eecs@192.168.0.102
+$ ssh eecs@192.168.0.100
 ```
 
 <!-- 
@@ -95,7 +105,7 @@ First, we need to update all packages installed on all VMs. At the end of the fo
 
 ```sh
 # update the package list and upgrade installed packages on all machines
-(master, worker and cluster head) $ sudo apt-get update && sudo apt-get upgrade -qy
+(master, workers and cluster head) $ sudo apt-get update && sudo apt-get upgrade -qy
 ```
 
 In case you will be using more than one VM for your cluster, make sure that there
@@ -110,21 +120,21 @@ Make sure to replace `192.168.0.101` with your worker VM IP, if different.
 You should see an output like this:
 
 ```console
-Pinging 192.168.0.101 with 32 bytes of data:
-Reply from 192.168.0.101: bytes=32 time<1ms TTL=64
-Reply from 192.168.0.101: bytes=32 time<1ms TTL=64
-Reply from 192.168.0.101: bytes=32 time<1ms TTL=64
-
-Ping statistics for 192.168.0.101:
-    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
-Approximate round trip times in milli-seconds:
-    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+PING 192.168.0.101 (192.168.0.101) 56(84) bytes of data.
+64 bytes from 192.168.0.101: icmp_seq=1 ttl=64 time=0.708 ms
+64 bytes from 192.168.0.101: icmp_seq=2 ttl=64 time=1.03 ms
+64 bytes from 192.168.0.101: icmp_seq=3 ttl=64 time=0.608 ms
+64 bytes from 192.168.0.101: icmp_seq=4 ttl=64 time=0.708 ms
+^C
+--- 192.168.0.101 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3019ms
+rtt min/avg/max/mdev = 0.608/0.763/1.030/0.159 ms
 ```
 
 ## SSH-key
 
 SSH keys are used to establish secure connections between two devices, allowing for secure and authenticated access to remote systems. SSH keys provide a more secure way to log in to a remote server than using a password alone. An SSH key pair typically consists of a private key, which should be kept confidential and stored on the client machine, and a public key, which can be shared and stored on remote servers. When connecting to a remote server using SSH, the client first authenticates using its private key, and the server then verifies the authenticity of the client's public key. If the public key matches the private key, the server grants access to the client. 
-In this project, we generate ssh key on server3 and then copy the ssh public key to server1 and server2.
+In this project, we generate ssh key on server1 and then copy the ssh public key to server2, server3, and server4.
 
 
 
@@ -142,9 +152,10 @@ Your public key has been saved in /home/eecs/.ssh/id_rsa.pub
 ```
 
 ```sh
-# This copies the server3's public key to the server1 and server2 authorized keys file
-$ ssh-copy-id eecs@192.168.0.100
+# This copies the server1's public key to the server2, server3 and server4 authorized keys file
 $ ssh-copy-id eecs@192.168.0.101
+$ ssh-copy-id eecs@192.168.0.102
+$ ssh-copy-id eecs@192.168.0.103
 ```
 
 ## The 'eecs' user on Ubuntu VMs
@@ -208,7 +219,7 @@ After the installation is complete, you can test your installation using the fol
 
 ```console
 $ conda --version
-conda 22.11.1
+conda 23.11.0
 ```
 
 ## Jupyter Notebook Installation

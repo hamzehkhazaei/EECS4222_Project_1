@@ -1,7 +1,7 @@
 # EECS4222: Distributed Systems: Project 1 (20%)
 **Title:** Autoscaling for Microservices in Cloud    
-**Start:** Feb 5, 2023, @ 9:00am EST   
-**Due:** Mar 3, 2023, by 9:00pm EST (Extended)   
+**Start:** Jan 22, 2024, @ 9:00am EST   
+**Due:** Feb 11, 2024, by 9:00pm EST  
 
 Welcome to `EECS4222` course project. In this project, you will deploy a sample
 application based on microservice architecture on a `Kubernetes` cluster. Then you exercise various
@@ -28,4 +28,4 @@ Here is the table of contents for phase 1:
 |9    | [Submission and Evaluation](tutorials/09-phase1-evaluation.md) |
 
 Should you have any question or issue, please post them in the course's forum
-or [open an issue on GitHub](https://github.com/hamzehkhazaei/EECS4222_Project1/issues/new/choose).
+or [open an issue on GitHub](https://github.com/hamzehkhazaei/EECS4222_Project_1/issues/new/choose).
