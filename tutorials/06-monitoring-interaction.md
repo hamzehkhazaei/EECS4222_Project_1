@@ -14,18 +14,18 @@ To get a list of deployments in our cluster, you can run the following command o
 ```console
 $ kubectl get deploy
 NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
-redis-cart              1/1     1            1           107m
-shippingservice         1/1     1            1           107m
-paymentservice          1/1     1            1           107m
-productcatalogservice   1/1     1            1           107m
-emailservice            1/1     1            1           107m
-checkoutservice         1/1     1            1           107m
-recommendationservice   1/1     1            1           107m
-currencyservice         1/1     1            1           107m
-frontend                1/1     1            1           107m
-cartservice             1/1     1            1           107m
-adservice               1/1     1            1           107m
-loadgenerator           1/1     1            1           107m
+checkoutservice         1/1     1            1           59m
+productcatalogservice   1/1     1            1           59m
+shippingservice         1/1     1            1           59m
+redis-cart              1/1     1            1           59m
+frontend                1/1     1            1           59m
+cartservice             1/1     1            1           59m
+currencyservice         1/1     1            1           59m
+emailservice            1/1     1            1           59m
+paymentservice          1/1     1            1           59m
+recommendationservice   1/1     1            1           59m
+adservice               1/1     1            1           59m
+loadgenerator           1/1     1            1           59m
 ```
 
 Many queries in this section will query specific information about a single deployment, but you can query similar information
