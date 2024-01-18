@@ -30,25 +30,26 @@ kubectl create ns monitoring
 helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring \
     --set prometheus.prometheusSpec.scrapeInterval=10s
 # patch service to make it accessible
-kubectl patch svc/prometheus-kube-prometheus-prometheus -n monitoring --patch "$(curl -sSL https://github.com/hamzehkhazaei/EECS4222_Project_1/blob/master/files/prom-svc.yaml)"
+kubectl patch svc/prometheus-kube-prometheus-prometheus -n monitoring --patch "$(curl -sSL https://raw.githubusercontent.com/hamzehkhazaei/EECS4222_Project_1/master/files/prom-svc.yaml)"
 # patch grafana service to change it to port 3000
 kubectl patch svc/prometheus-grafana -n monitoring --type='json' -p='[{"op": "replace", "path": "/spec/ports/0/port", "value": 3000}]'
 # patch grafana service to change the service to load balancer type
-kubectl patch svc/prometheus-grafana -n monitoring --patch "$(curl -sSL https://github.com/hamzehkhazaei/EECS4222_Project_1/blob/master/files/grafana-svc.yaml)"
+kubectl patch svc/prometheus-grafana -n monitoring --patch "$(curl -sSL https://raw.githubusercontent.com/hamzehkhazaei/EECS4222_Project_1/master/files/grafana-svc.yaml)"
 ```
 
 Now, let's check the status of the deployment:
 
 ```console
 $ kubectl get pods -n monitoring
-NAME                                                     READY   STATUS    RESTARTS   AGE
-prometheus-kube-prometheus-operator-776f486d6-vlds4      1/1     Running   0          47s
-prometheus-kube-state-metrics-95d956569-2pwf9            1/1     Running   0          47s
-prometheus-prometheus-node-exporter-4frw7                1/1     Running   0          47s
-prometheus-prometheus-node-exporter-jjhvt                1/1     Running   0          47s
-alertmanager-prometheus-kube-prometheus-alertmanager-0   2/2     Running   0          39s
-prometheus-grafana-7db74fd7d6-4zlxn                      2/2     Running   0          47s
-prometheus-prometheus-kube-prometheus-prometheus-0       2/2     Running   1          39s
+NAME                                                     READY   STATUS    RESTARTS      AGE
+prometheus-prometheus-node-exporter-f47r9                1/1     Running   0             51m
+prometheus-prometheus-node-exporter-mxqwt                1/1     Running   0             51m
+prometheus-kube-prometheus-operator-86cbd94f79-xgw8r     1/1     Running   0             51m
+prometheus-kube-state-metrics-6db866c85b-xbh9t           1/1     Running   0             51m
+prometheus-prometheus-kube-prometheus-prometheus-0       2/2     Running   0             51m
+prometheus-grafana-6b78466b4-99nbh                       3/3     Running   0             31m
+prometheus-prometheus-node-exporter-t79xb                1/1     Running   1 (17m ago)   51m
+alertmanager-prometheus-kube-prometheus-alertmanager-0   2/2     Running   2 (17m ago)   51m
 ```
 
 Wait until the `STATUS` for all pods turns into `Running`. We should be able
@@ -57,15 +58,15 @@ and `prometheus-grafana` shown as `LoadBalancer`.
 
 ```console
 $ kubectl get svc -n monitoring
-NAME                                      TYPE           CLUSTER-IP      EXTERNAL-IP                   PORT(S)                      AGE
-prometheus-kube-prometheus-operator       ClusterIP      10.43.7.223     <none>                        443/TCP                      41m
-prometheus-kube-state-metrics             ClusterIP      10.43.51.45     <none>                        8080/TCP                     41m
-prometheus-kube-prometheus-alertmanager   ClusterIP      10.43.168.32    <none>                        9093/TCP                     41m
-prometheus-prometheus-node-exporter       ClusterIP      10.43.247.38    <none>                        9100/TCP                     41m
-alertmanager-operated                     ClusterIP      None            <none>                        9093/TCP,9094/TCP,9094/UDP   41m
-prometheus-operated                       ClusterIP      None            <none>                        9090/TCP                     41m
-prometheus-kube-prometheus-prometheus     LoadBalancer   10.43.195.135   192.168.0.100,192.168.0.101             9090:31673/TCP               41m
-prometheus-grafana                        LoadBalancer   10.43.243.216   192.168.0.100,192.168.0.101             3000:30331/TCP               41m
+NAME                                      TYPE           CLUSTER-IP      EXTERNAL-IP                                 PORT(S)                         AGE
+prometheus-kube-prometheus-operator       ClusterIP      10.43.7.37      <none>                                      443/TCP                         52m
+prometheus-kube-prometheus-alertmanager   ClusterIP      10.43.36.233    <none>                                      9093/TCP,8080/TCP               52m
+prometheus-kube-state-metrics             ClusterIP      10.43.148.252   <none>                                      8080/TCP                        52m
+prometheus-prometheus-node-exporter       ClusterIP      10.43.209.132   <none>                                      9100/TCP                        52m
+alertmanager-operated                     ClusterIP      None            <none>                                      9093/TCP,9094/TCP,9094/UDP      52m
+prometheus-operated                       ClusterIP      None            <none>                                      9090/TCP                        52m
+prometheus-kube-prometheus-prometheus     LoadBalancer   10.43.142.29    192.168.0.101,192.168.0.102,192.168.0.103   9090:32634/TCP,8080:31882/TCP   52m
+prometheus-grafana                        LoadBalancer   10.43.239.4     192.168.0.101,192.168.0.102,192.168.0.103   3000:31189/TCP                  2m8s
 ```
 
 Now, you should be able to open Prometheus on `http://MASTER_IP:9090` and Grafana on `http://MASTER_IP:3000`. The
