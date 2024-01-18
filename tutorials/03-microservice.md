@@ -27,21 +27,19 @@ wait for all pods to go to the `Running` state using the following command:
 
 ```console
 $ watch kubectl get pods
-NAME                                     READY   STATUS    RESTARTS   AGE
-svclb-frontend-external-5drhw            1/1     Running   0          3m47s
-svclb-frontend-external-cfvsp            1/1     Running   0          3m48s
-shippingservice-75f7f9dc6c-n5mdj         1/1     Running   0          3m47s
-productcatalogservice-7f857c47f-jn5pf    1/1     Running   0          3m47s
-redis-cart-74594bd569-7h2sb              1/1     Running   0          3m47s
-checkoutservice-85d4b74f95-pwdnr         1/1     Running   0          3m48s
-frontend-6b64dc9665-7nccm                1/1     Running   0          3m48s
-emailservice-798f4f5575-p7wz2            1/1     Running   0          3m48s
-currencyservice-6d7f8fc9fc-6kks4         1/1     Running   0          3m47s
-paymentservice-98cb47fff-kpbvk           1/1     Running   0          3m48s
-recommendationservice-5bf5bcbbdf-7hjmt   1/1     Running   0          3m48s
-cartservice-675b6659c8-mcz6x             1/1     Running   0          3m47s
-adservice-5f6f7c76f5-82vz2               1/1     Running   0          3m46s
-loadgenerator-7747b67b5-s8t5c            1/1     Running   3          3m47s
+NAME                                     READY   STATUS    RESTARTS      AGE
+checkoutservice-b888cf998-z8d4q          1/1     Running   0             2m5s
+productcatalogservice-79d9bd9666-hpwpm   1/1     Running   0             2m4s
+shippingservice-799dd7f6dd-cbh4c         1/1     Running   0             2m1s
+redis-cart-69cdbb8ffb-gd7zt              1/1     Running   0             2m
+frontend-56d8b4ff94-cxvgm                1/1     Running   0             2m5s
+cartservice-5746fbfc7-s9mt4              1/1     Running   0             2m3s
+currencyservice-7dd8bb8d8b-xwhwn         1/1     Running   0             2m2s
+emailservice-779ff9c7cb-nk6kk            1/1     Running   0             2m5s
+paymentservice-8b678b4d8-sgmth           1/1     Running   0             2m4s
+recommendationservice-85d4cc98b8-6whhg   1/1     Running   0             2m5s
+loadgenerator-6fd975f6b7-f2l4b           1/1     Running   3 (69s ago)   2m3s
+adservice-665789b648-hmwtw               1/1     Running   0             119s
 ```
 
 After the all the services are up and running, you can open the deployed
