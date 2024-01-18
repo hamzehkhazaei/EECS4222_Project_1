@@ -27,8 +27,9 @@ $ jupyter notebook
 
 This will give you the link to open jupyter notebook interface. To be able to open the link on your Windows machine, run the following command on a new cmd window:
 
-```console
-$ ssh -N -f -L localhost:8888:localhost:8888 eecs@192.168.0.100
+```sh
+# Make sure to ssh to the master node. In our case, the master node IP is 192.168.0.102
+$ ssh -N -f -L localhost:8888:localhost:8888 eecs@192.168.0.102
 ```
 
 This notebook includes an integration of all the components we have deployed
