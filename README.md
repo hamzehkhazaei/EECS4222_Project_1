@@ -3,10 +3,10 @@
 **Start:** Jan 22, 2024, @ 9:00am EST   
 **Due:** Feb 11, 2024, by 9:00pm EST  
 
-Welcome to `EECS4222` course project. In this project, you will deploy a sample
+Welcome to `EECS4222` course project 1. In this project, you will deploy a sample
 application based on microservice architecture on a `Kubernetes` cluster. Then you exercise various
 pre-defined autoscaling strategies to handle/investigate flactuations in the applied workload to your cluster.
-
+       s
 In fact, this project is like a tutorial that you need to follow the steps mentioned in 
 the below table.
 
