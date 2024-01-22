@@ -5,9 +5,7 @@
 
 Welcome to `EECS4222` course project 1. In this project, you will deploy a sample
 application based on microservice architecture on a `Kubernetes` cluster. Then you exercise various
-pre-defined autoscaling strategies to handle/investigate flactuations in the applied workload to your cluster.
-       s
-In fact, this project is like a tutorial that you need to follow the steps mentioned in 
+pre-defined autoscaling strategies to handle/investigate flactuations in the applied workload to your cluster. In fact, this project is like a tutorial that you need to follow the steps mentioned in 
 the below table.
 
 At the end of each step, you will see a list of references that may help you gain a better
